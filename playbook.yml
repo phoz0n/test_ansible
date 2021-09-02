@@ -1,0 +1,26 @@
+---
+- name: Copie
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copie du fichier en cours
+      copy:
+        src: ./fichier.txt
+        dest: /tmp/fichier.txt
+
+    - name: Mise a jour
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: Fichier ajouter julien
+      lineinfile:
+        path: /tmp/fichier.txt
+        line: 'je suis julien'
+
+    - name: Fichier changer julien en phozon
+      lineinfile:
+        path: /tmp/fichier.txt
+        regexp: '(.*)julien(.*)'
+        line: '\1phozon\2'
+        backrefs: yes
